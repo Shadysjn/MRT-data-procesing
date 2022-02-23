@@ -29,7 +29,8 @@ class Member
 {
     isA Account;
 emergencyContact;
-  }
+    * -> 1 Season season;
+}
 
 class HotelRental
 {
@@ -78,7 +79,8 @@ class Season
 {
   Date seasonBegin;
   Date seasonEnd;
-  1 -> * SwimDay openSwimDays;
+  int length;
+1 -> * SwimDay openSwimDays;
 }
 
 
@@ -97,4 +99,13 @@ class Expedition
 * expeditions -- * HotelRental hotelRentals;
   1 expedition -- * Rental rentals;
   * expeditions -- 1 Member booker;
+  1 Expedition -- * ExpeditionDay listOfDays;
+}
+
+
+class ExpeditionDay
+{
+  Boolean hasGuide;
+1 day -- 0..1 Guide assignedGuide;
+  1 expeditionDay -- 1 SwimDay swimmingDay;
 }
