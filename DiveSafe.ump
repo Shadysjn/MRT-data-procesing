@@ -1,0 +1,100 @@
+class Account
+{
+  abstract;
+  name; 
+  unique email;
+  password;
+    }
+
+class Admin
+{
+  isA Account;
+  1 admin-- * Guide guides;
+  1 -> 1 Season season;
+  1 admin-- * Member members;
+  1 -> * Bundle bundles;
+  1 -> * Equipment equipments;
+  1 -> * Hotel hotels;
+}
+
+class Guide
+{
+    isA Account;
+int price;
+  emergencyContact;
+  1 guideWorking-- 1..* SwimDay workingDays;
+}
+
+class Member
+{
+    isA Account;
+emergencyContact;
+  }
+
+class HotelRental
+{
+  Date checkIn;
+  Date checkOut;
+  int lengthOfStay;
+  }
+
+class Hotel
+{
+  name;
+  int address;
+  type;
+  R rating;
+  1 rentedHotel -- * HotelRental hotelRental;
+}
+
+class Rental
+{
+  Date startDay;
+  Date returnDay;
+}
+
+class Equipment
+{
+  int price;
+  int weight;
+  1 equipment <- 1 Rental rental;
+}
+
+class Bundle
+{
+  int totalNonDiscountPrice;
+  int totalDiscountPrice;
+  1 rentedBundle-- 1 Rental associatedRental;
+  1 equipmentContained-- 2..* Equipment associatedEquipment;
+}
+
+class SwimDay
+{
+  int day;
+  Date currentDay;
+}
+
+class Season
+{
+  Date seasonBegin;
+  Date seasonEnd;
+  1 -> * SwimDay openSwimDays;
+}
+
+
+
+namespace -;
+
+
+enum Rating
+{
+  1,2,3,4,5
+}
+
+class Expedition
+{
+  int numberOfExpeditionDays;
+* expeditions -- * HotelRental hotelRentals;
+  1 expedition -- * Rental rentals;
+  * expeditions -- 1 Member booker;
+}
