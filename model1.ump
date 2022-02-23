@@ -1,0 +1,175 @@
+class Account
+{
+  abstract;
+  name; 
+  immutable email;
+  password;
+  
+    }
+
+class Admin
+{
+  isA Account;
+}
+
+class Guide
+{
+    isA Account;
+int price;
+  emergencyContact;
+  1 guideWorking-- 1..* SwimDay workingDay;
+}
+
+class Member
+{
+    isA Account;
+emergencyContact;
+  1 renter-- * Rental equipmentBooking;
+}
+
+class HotelRental
+{
+  Date checkIn;
+  Date checkOut;
+  int lengthOfStay;
+  1 hotebooking -- 1 Member rentedMember;
+}
+
+class Hotel
+{
+  name;
+  int address;
+  type;
+  int rating;
+  * rentedHotel -- 1 HotelRental hotelRental;
+}
+
+class Rental
+{
+  Date startDay;
+  Date returnDay;
+}
+
+class Equipment
+{
+  int price;
+  int weight;
+  1 -- 1 Rental;
+}
+
+class Bundle
+{
+  int totalNonDiscountPrice;
+  int totalDiscountPrice;
+  1 rentedBundle-- 1 Rental associatedRental;
+  1 equipmentContained-- 2..* Equipment associatedBundle;
+}
+
+class SwimDay
+{
+  int day;
+  Date currentDay;
+}
+
+class Season
+{
+  Date seasonBegin;
+  Date seasonEnd;
+    1  -> * SwimDay openSwimDay;
+}
+
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class Account
+{
+  position 99 54 138.292 108.698;
+    }
+
+class Admin
+{
+  position 232 283 109 41.6979;
+}
+
+class Guide
+{
+  position 304 173 200.458 75.6979;
+  position.association Guide__SwimDay 111,0 0,42;
+  position.association Guide__SwimDay:guide 14,0 0,10;
+  position.association Guide__SwimDay:guideWorking 14,0 0,10;
+  position.association Guide:av__SwimDay:guideWorking 14,0 0,10;
+  position.association Guide:guideWorking__SwimDay 14,0 0,10;
+  position.association Guide:guideWorking__SwimDay:workingDay 14,0 0,10;
+}
+
+class Member
+{
+  position 1 238 200.458 58.6979;
+  position.association Member__Rental 128,59 43,0;
+  position.association Member__Rental:e 101,59 0,10;
+  position.association Member__Rental:equipmentBooking 101,59 0,10;
+  position.association Member:renter__Rental:equipmentBooking 101,59 0,10;
+}
+
+class HotelRental
+{
+  position 62 390 139.354 92.6979;
+  position.association HotelRental__Member 80,0 92,55;
+  position.association HotelRental:rentedMember__Member 0,10 20,59;
+  position.association HotelRental__Member:rentedMember 0,10 20,59;
+  position.association HotelRental:hotelRental__Member:rentedMember 0,10 20,59;
+  position.association HotelRental:booking__Member:rentedMember 0,10 20,59;
+  position.association HotelRental:hotebooking__Member:rentedMember 0,10 20,59;
+}
+
+class Hotel
+{
+  position 94 531 112.438 109.698;
+  position.association Hotel__HotelRental 65,0 75,88;
+  position.association Hotel__HotelRental:renter 30,0 36,93;
+  position.association Hotel:renter__HotelRental:renter 30,0 36,93;
+  position.association Hotel:rentedHotel__HotelRental:renter 30,0 36,93;
+  position.association Hotel:rentedHotel__HotelRental:tenant 30,0 36,93;
+  position.association Hotel:rentedHotel__HotelRental 30,0 36,93;
+  position.association Hotel:rentedHotel__HotelRental:hotelRental 30,0 36,93;
+}
+
+class Rental
+{
+  position 347 405 130.688 75.6979;
+}
+
+class Equipment
+{
+  position 735 360 109 75.6979;
+  position.association Equipment__Rental 0,31 134,26;
+}
+
+class Bundle
+{
+  position 607 540 153.604 74.6979;
+  position.association Bundle__Rental 5,0 95,76;
+  position.association Bundle__Equipment 79,0 62,61;
+  position.association Bundle__Rental:conatainedIn 0,10 127,76;
+  position.association Bundle:conatainedIn__Rental 0,10 127,76;
+  position.association Bundle:conatainedIn__Rental:rentedBundle 0,10 127,76;
+  position.association Bundle:conatainedIn__Rental:associatedRental 0,10 127,76;
+  position.association Bundle:conatainedBundle__Rental:associatedRental 0,10 127,76;
+  position.association Bundle:rentedBundle__Rental:associatedRental 0,10 127,76;
+  position.association Bundle__Equipment:associatedBundle 30,0 0,65;
+  position.association Bundle:equipmentContained__Equipment:associatedBundle 5,0 0,10;
+}
+
+class SwimDay
+{
+  position 483 41 109 91.6979;
+}
+
+class Season
+{
+  position 683 42 109 74.6979;
+    position.association Season__SwimDay 0,12 141,19;
+  position.association Season__SwimDay:openSwimDay 0,10 110,4;
+}
