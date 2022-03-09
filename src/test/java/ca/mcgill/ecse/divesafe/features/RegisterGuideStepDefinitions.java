@@ -1,12 +1,29 @@
 package ca.mcgill.ecse.divesafe.features;
-
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import ca.mcgill.ecse.divesafe.application.DiveSafeApplication;
+import ca.mcgill.ecse.divesafe.model.DiveSafe;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class RegisterGuideStepDefinitions {
+
+	List<DiveSafe> diveSafes = new LinkedList<DiveSafe>();
   @Given("the following DiveSafe system exists: \\(p3)")
   public void the_following_dive_safe_system_exists_p3(io.cucumber.datatable.DataTable dataTable) {
+	 
+	  //formatting date to string 
+	  SimpleDateFormat formatter2=new SimpleDateFormat("yyyy-MM-dd");
+	  
+	  List<List<String>> rows = dataTable.asLists(String.class);
+	  
+	  for (List<String> columns: rows) {
+		  diveSafes.add(new DiveSafe((Date) formatter2.parse(columns.get(0)), Integer.parseInt(columns.get(1)),Integer.parseInt(columns.get(2))));
+	  }
+	  
+	  
     // Write code here that turns the phrase above into concrete actions
     // For automatic transformation, change DataTable to one of
     // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
@@ -14,7 +31,6 @@ public class RegisterGuideStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
   }
 
   @Given("the following guides exist in the system: \\(p3)")
