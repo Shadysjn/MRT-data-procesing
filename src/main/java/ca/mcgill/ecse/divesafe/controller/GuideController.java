@@ -11,7 +11,7 @@ public class GuideController {
 	  
 	  	email.toLowerCase();
 	  	if (email=="") {
-	  		return "Eamil cannot be empty");
+	  		return "Emil cannot be empty";
 	  	}
 	  
 	  	//check that there is one @
