@@ -1,5 +1,4 @@
 package ca.mcgill.ecse.divesafe.features;
-import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,16 +11,17 @@ import ca.mcgill.ecse.divesafe.model.Member;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.jupiter.api.AfterAll;
+
+import static org.junit.Assert.*;
 
 
 public class RegisterGuideStepDefinitions {
 
+    String responseFound;
+
     /**
      * @author danielmakhlin
      */
-
-
   @Given("the following DiveSafe system exists: \\(p3)")
   public void the_following_dive_safe_system_exists_p3(io.cucumber.datatable.DataTable dataTable) throws ParseException {
 
@@ -92,36 +92,46 @@ public class RegisterGuideStepDefinitions {
      * @author AlecTufenkjian
      */
   @When("a new guide attempts to register with {string}, {string}, {string}, and {string} \\(p3)")
-  public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name,String emergencyContact) {
-      String response = "";
+  public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name, String emergencyContact) {
+
       try {
-         response = GuideController.registerGuide(email, password, name, emergencyContact);
-         System.out.println(response);
+         responseFound = GuideController.registerGuide(email, password, name, emergencyContact);
+         System.out.println(responseFound);
       } catch (Exception e) {
           e.printStackTrace();
       }
-      // Write code here that turns the phrase above into concrete actions
-
-    throw new io.cucumber.java.PendingException();
   }
 
+    /**
+     * @author AlecTufenkjian
+     */
   @Then("a new guide account shall exist with {string}, {string}, {string}, and {string} \\(p3)")
-  public void a_new_guide_account_shall_exist_with_and_p3(String string, String string2,
-      String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+  public void a_new_guide_account_shall_exist_with_and_p3(String email, String password, String name,String emergencyContact) {
+      List<Guide> guides = DiveSafeApplication.getDiveSafe().getGuides();
 
+      boolean guideFound = false;
+      for (Guide guide: guides){
+          if(guide.getEmail().equals(email) && guide.getPassword().equals(password) && guide.getName().equals(name) && guide.getEmergencyContact().equals(emergencyContact)) {
+             guideFound = true;
+          }
+      }
+      assertTrue(guideFound);
+  }
+    /**
+     * @author AlecTufenkjian
+     */
   @Then("the number of guides in the system is {int} \\(p3)")
-  public void the_number_of_guides_in_the_system_is_p3(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+  public void the_number_of_guides_in_the_system_is_p3(Integer numberOfGuidesExpected) {
+      Integer numberOfGuidesFound = DiveSafeApplication.getDiveSafe().numberOfGuides();
 
+      assertEquals(numberOfGuidesExpected, numberOfGuidesFound);
+  }
+    /**
+     * @author AlecTufenkjian
+     */
   @Then("the following {string} shall be raised \\(p3)")
-  public void the_following_shall_be_raised_p3(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_following_shall_be_raised_p3(String responseExpected) {
+        assertEquals(responseExpected, responseFound);
   }
 }
 

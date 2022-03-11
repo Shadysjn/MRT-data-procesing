@@ -54,7 +54,7 @@ public class GuideController {
 	  	}
 	  	if (!validSplit) {
 	  		//check if the email syntax is valid 
-	  		return "invalid email";
+	  		return "Invalid email";
 	  	}
 	  	
 
