@@ -60,6 +60,7 @@ public class RegisterGuideStepDefinitions {
           //Guide newGuide = new Guide(email, password, name, emergencyContact, DiveSafeApplication.getDiveSafe());
       }
       //System.out.println(guides);
+      System.out.println("-------------------------");
 
   }
 
@@ -86,6 +87,8 @@ public class RegisterGuideStepDefinitions {
 
       }
 
+      System.out.println("-------------------------");
+
   }
 
     /**
@@ -96,7 +99,6 @@ public class RegisterGuideStepDefinitions {
 
       try {
          responseFound = GuideController.registerGuide(email, password, name, emergencyContact);
-         System.out.println(responseFound);
       } catch (Exception e) {
           e.printStackTrace();
       }

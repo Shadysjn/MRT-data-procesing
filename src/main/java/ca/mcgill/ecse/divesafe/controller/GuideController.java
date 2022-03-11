@@ -15,37 +15,53 @@ public class GuideController {
 	  	}
 	  
 	  	//check that there is one @
-	  	int amountOfAts = 0; 
+	  	int amountOfAts = 0;
+		  int positionOfAt = 0;
+		  int positionOfDot = 0;
 	  	int amountOfSpaces = 0; 
 	  	boolean validSplit = true; 
 	  	for (int i = 0; i<email.length();i++) {
 	  		if (email.charAt(i)=='@') {
 	  			amountOfAts++;
-	  		}
-	  		if (email.charAt(i)==' ') {
-	  			amountOfSpaces++;
-	  		}
+				  positionOfAt = i;
+	  		}else if (email.charAt(i)==' ') {
+				amountOfSpaces++;
+			}else if (email.charAt(i)=='.'){
+				  positionOfDot = i;
+			}
+
 	  		
 	  		//check if we should remove this 
 	  		if (!((email.charAt(i)>= 97 || email.charAt(i)<=122)||(email.charAt(i)=='@') || (email.charAt(i)=='.'))) {
 	  			validSplit = false; 
 	  		}
 	  	}
-	  	System.out.print(email);
+
+	  //check if the email is NOT the admin email
+	  if (email.equals("admin@nmc.nt")) {
+		  return "Email cannot be admin@nmc.nt";
+	  }
+
 	  	String[] splitString = email.split("\\.");
-	  	if (splitString.length>2) {
+	  	if (splitString.length != 2) {
 	  		//cannot have more than 1 dot
 	  		validSplit = false; 
-	  	}else if (email.contains("com") && splitString[1].equals("com") && splitString[0].charAt(splitString[0].length()-1)=='@') {
-	  		// cannot have the situation in which @.com
-	  		validSplit = false; 
-	  	}else if (splitString.length > 1 && !splitString[1].equals("com")) {
-	  		//make sure 
-	  		validSplit = false;
 	  	}else if (amountOfAts!=1 ) {
-	  		//makes sure there is exactly 1 @ in the string 
-	  		validSplit = false; 
-	  	}
+			//makes sure there is exactly 1 @ in the string
+			validSplit = false;
+		}else if(positionOfAt == 0){
+			  validSplit = false;
+		}else if(positionOfDot < positionOfAt){
+			  validSplit = false;
+		}else if (email.contains("com") && splitString[1].equals("com") && splitString[0].charAt(splitString[0].length()-1)=='@') {
+			// cannot have the situation in which @.com
+			validSplit = false;
+		}else if (!(splitString[1].equals("com") || !splitString[1].equals("nt")) ) {
+			//make sure ends with .com or .nt
+			validSplit = false;
+		}
+
+
 	  	
 
 	  	if (amountOfSpaces>0) {
@@ -56,21 +72,14 @@ public class GuideController {
 	  		//check if the email syntax is valid 
 	  		return "Invalid email";
 	  	}
-	  	
-
-	  
-	  //check if the email is NOT the admin email 
-	  if (email.equals("admin@nmc.nt")) {
-		  return "Email cannot be admin@nmc.nt";
-	  }
 	  
 	  //check if the email is NOT linked to an existing guide account 
-	  if (!Guide.hasWithEmail(email)) {
+	  if (Guide.hasWithEmail(email)) {
 		  return "Email already linked to a guide account"; 
 	  }
 	  
 	  //check if the email is NOT linked to an existing member account 
-	  if (!Member.hasWithEmail(email)) {
+	  if (Member.hasWithEmail(email)) {
 		  return "Email already linked to a member account";
 	  
 	  }
