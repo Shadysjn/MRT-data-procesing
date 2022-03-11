@@ -1,20 +1,20 @@
 # :diving_mask: ECSE223 DiveSafe Project: Team N
 
-_(Edit this file as needed, then remove this sentence)._
 
 ## Project Overview
 
-_Provide a one-sentence overview of your project here._
+An application for the small island country of Atlantis.
 
 For more information about the DiveSafe application, please consult the [wiki](../../wiki).
 
 ## Team Members
 
-| Name          | GitHub username |
-| ------------- | --------------- |
-| Team Member A | ...             |
-| Team Member B | ...             |
-| Team Member C | ...             |
-| Team Member D | ...             |
-| Team Member E | ...             |
-| Team Member F | ...             |
+| Name               | GitHub username|
+| -------------------| ---------------|
+| Alec Tufenkjian    | AlecTufenkjian |
+| Androw Abd El Malak| AndrowAM       |
+| Shady Guindi       | Shadysjn       |
+| Daniel Makhlin     | DanielMakhlin  |
+| Yassine Meliani    | yassinemeliani |
+| Radu Petrescu      | PetrescuRad    |
+
