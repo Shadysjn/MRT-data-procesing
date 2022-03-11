@@ -93,9 +93,10 @@ public class RegisterGuideStepDefinitions {
      */
   @When("a new guide attempts to register with {string}, {string}, {string}, and {string} \\(p3)")
   public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name,String emergencyContact) {
-
+      String response = "";
       try {
-         String response = GuideController.registerGuide(email, password, name, emergencyContact);
+         response = GuideController.registerGuide(email, password, name, emergencyContact);
+         System.out.println(response);
       } catch (Exception e) {
           e.printStackTrace();
       }

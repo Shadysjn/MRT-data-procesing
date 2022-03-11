@@ -36,10 +36,10 @@ public class GuideController {
 	  	if (splitString.length>2) {
 	  		//cannot have more than 1 dot
 	  		validSplit = false; 
-	  	}else if (splitString[1].equals("com") && splitString[0].charAt(splitString[0].length()-1)=='@') {
+	  	}else if (email.contains("com") && splitString[1].equals("com") && splitString[0].charAt(splitString[0].length()-1)=='@') {
 	  		// cannot have the situation in which @.com
 	  		validSplit = false; 
-	  	}else if (!splitString[1].equals("com")) {
+	  	}else if (splitString.length > 1 && !splitString[1].equals("com")) {
 	  		//make sure 
 	  		validSplit = false;
 	  	}else if (amountOfAts!=1 ) {
