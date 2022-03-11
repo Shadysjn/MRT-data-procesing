@@ -88,15 +88,19 @@ public class RegisterGuideStepDefinitions {
 
   }
 
+    /**
+     * @author AlecTufenkjian
+     */
   @When("a new guide attempts to register with {string}, {string}, {string}, and {string} \\(p3)")
-  public void a_new_guide_attempts_to_register_with_and_p3(String string, String string2,
-      String string3, String string4) {
+  public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name,String emergencyContact) {
+
       try {
-         // GuideController.registerGuide(string, string2, string3, string4);
+         String response = GuideController.registerGuide(email, password, name, emergencyContact);
       } catch (Exception e) {
           e.printStackTrace();
       }
       // Write code here that turns the phrase above into concrete actions
+
     throw new io.cucumber.java.PendingException();
   }
 

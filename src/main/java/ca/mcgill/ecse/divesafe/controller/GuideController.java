@@ -32,7 +32,7 @@ public class GuideController {
 	  		}
 	  	}
 	  	System.out.print(email);
-	  	String[] splitString = email.split(".");
+	  	String[] splitString = email.split("\\.");
 	  	if (splitString.length>2) {
 	  		//cannot have more than 1 dot
 	  		validSplit = false; 
