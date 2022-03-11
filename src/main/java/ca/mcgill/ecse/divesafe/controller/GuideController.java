@@ -9,9 +9,9 @@ public class GuideController {
       String emergencyContact) throws Exception {
 	  //check if the email is valid 
 	  
-	  	email.toLowerCase();
-	  	if (email=="") {
-	  		return "Emil cannot be empty";
+	  	String lowercaseEmail = email.toLowerCase();
+	  	if (lowercaseEmail.equals("")) {
+	  		return "Email cannot be empty";
 	  	}
 	  
 	  	//check that there is one @
@@ -31,15 +31,15 @@ public class GuideController {
 	  			validSplit = false; 
 	  		}
 	  	}
-	  	
+	  	System.out.print(email);
 	  	String[] splitString = email.split(".");
 	  	if (splitString.length>2) {
 	  		//cannot have more than 1 dot
 	  		validSplit = false; 
-	  	}else if (splitString[1]=="com" && splitString[0].charAt(splitString[0].length()-1)=='@') {
+	  	}else if (splitString[1].equals("com") && splitString[0].charAt(splitString[0].length()-1)=='@') {
 	  		// cannot have the situation in which @.com
 	  		validSplit = false; 
-	  	}else if (splitString[1]!="com") {
+	  	}else if (!splitString[1].equals("com")) {
 	  		//make sure 
 	  		validSplit = false;
 	  	}else if (amountOfAts!=1 ) {
@@ -52,7 +52,7 @@ public class GuideController {
 	  		//cannot contain spaces
 	  		return "Email must not contain any spaces";
 	  	}
-	  	if (validSplit == false) {
+	  	if (!validSplit) {
 	  		//check if the email syntax is valid 
 	  		return "invalid email";
 	  	}
@@ -75,24 +75,25 @@ public class GuideController {
 	  
 	  }
 	  //password is not empty 
-	  if (password.equals("") || password.equals(null)) {
+	  if (password.equals("") || password == (null)) {
 		  return "Password cannot be empty";
 	  }
 	  
 	  //name is not empty 
-	  if (name.equals("") || password.equals(null)) {
+	  if (name.equals("") || password == (null)) {
 		  return "Name cannot be empty";  
 	  }
 	  
 	  //emergency contact cannot be empty 
-	  if (emergencyContact.equals("") || emergencyContact.equals(null)) {
+	  if (emergencyContact.equals("") || emergencyContact == (null)) {
 		  return "Emergency contact cannot be empty";
 	  }
-		 
-    
-    //registering the new guide 
+
+
+    //registering the new guide
+
     Guide newGuide = new Guide(email, password, name, emergencyContact, DiveSafeApplication.getDiveSafe());
-    
+	  DiveSafeApplication.getDiveSafe().addGuide(newGuide);
     return null; 
   }
 
