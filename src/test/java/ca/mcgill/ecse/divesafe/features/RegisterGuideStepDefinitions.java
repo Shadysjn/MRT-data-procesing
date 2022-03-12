@@ -97,35 +97,6 @@ public class RegisterGuideStepDefinitions {
     }
 
     /**
-    * Verifies the existence of the guide
-    * @author androwabdelmalak
-    */
-    @Then("a new guide account shall exist with {string}, {string}, {string}, and {string} \\(p3)")
-    public void a_new_guide_account_shall_exist_with_and_p3(String email, String password, String name,String emergencyContact) {
-        List<Guide> listOfGuides = DiveSafeApplication.getDiveSafe().getGuides();
-
-        boolean foundGuide = false;
-
-        for (Guide guide: listOfGuides){
-            if(guide.getEmail().equals(email) && guide.getPassword().equals(password) && guide.getName().equals(name) && guide.getEmergencyContact().equals(emergencyContact)) {
-                foundGuide = true;
-                break;
-            }
-        }
-
-        assertTrue(foundGuide);
-    }
-
-    /**
-    * Compares the expected number of guides with the found number of guides
-    * @author androwabdelmalak
-    */
-    @Then("the number of guides in the system is {int} \\(p3)")
-    public void the_number_of_guides_in_the_system_is_p3(Integer expectedNumberOfGuides) {
-        assertEquals(expectedNumberOfGuides, (Integer) DiveSafeApplication.getDiveSafe().numberOfGuides());
-    }
-
-    /**
     * Compares the expected response with the found response
     * @author AlecTufenkjian
     */
