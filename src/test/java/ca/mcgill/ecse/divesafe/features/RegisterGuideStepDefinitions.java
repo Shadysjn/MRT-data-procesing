@@ -88,7 +88,7 @@ public class RegisterGuideStepDefinitions {
     @When("a new guide attempts to register with {string}, {string}, {string}, and {string} \\(p3)")
     public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name, String emergencyContact) {
         try {
-            System.out.println(email);
+            System.out.println("Tested Guide: " + email);
             responseFound = GuideController.registerGuide(email, password, name, emergencyContact);
         } catch (Exception e) {
             responseFound = "Error";
@@ -134,4 +134,3 @@ public class RegisterGuideStepDefinitions {
         assertEquals(responseExpected, responseFound);
     }
 }
-
