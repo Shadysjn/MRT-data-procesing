@@ -1,4 +1,4 @@
-# :diving_mask: ECSE223 DiveSafe Project: Team N
+# :diving_mask: ECSE223 DiveSafe Project: Team 14
 
 
 ## Project Overview
