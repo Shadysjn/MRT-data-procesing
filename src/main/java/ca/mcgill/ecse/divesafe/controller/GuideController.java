@@ -6,7 +6,7 @@ import ca.mcgill.ecse.divesafe.model.Member;
 public class GuideController {
 
 	/**
-	 *
+	 * @author danielmakhlin, radupetrescu, shadyguindi, AlecTufenkjian, androwabdelmalak, yassinemeliani
 	 * @param email - email string
 	 * @param password - password string
 	 * @param name - name string

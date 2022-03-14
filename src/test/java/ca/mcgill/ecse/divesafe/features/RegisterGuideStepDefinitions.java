@@ -20,7 +20,7 @@ public class RegisterGuideStepDefinitions {
 
     /**
     * Initializes the DiveSafe system
-    * @author danielmakhlin
+    * @author  danielmakhlin, radupetrescu, shadyguindi
     */
     @Given("the following DiveSafe system exists: \\(p3)")
     public void the_following_dive_safe_system_exists_p3(io.cucumber.datatable.DataTable dataTable) throws ParseException {
@@ -46,7 +46,7 @@ public class RegisterGuideStepDefinitions {
 
     /**
     * Initializes and adds the guides in the system
-    * @author radupetrescu
+    * @author radupetrescu, danielmakhlin
     */
     @Given("the following guides exist in the system: \\(p3)")
     public void the_following_guides_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) {
@@ -64,7 +64,7 @@ public class RegisterGuideStepDefinitions {
 
     /**
     * Initializes and adds members in the system
-    * @author radupetrescu
+    * @author radupetrescu, danielmakhlin
     */
     @Given("the following members exist in the system: \\(p3)")
     public void the_following_members_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) throws ParseException {
