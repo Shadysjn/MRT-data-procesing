@@ -69,6 +69,7 @@ public class GuideController {
 
 	/**
 	 * returns number of target character found in given string
+	 * @author AlecTufenkjian
 	 * @param email - email string
 	 * @param character - target character
 	 * @return number of target character found
@@ -85,6 +86,7 @@ public class GuideController {
 
 	/**
 	 * returns position of first occurring target character in given string
+	 * @author AlecTufenkjian
 	 * @param email - email string
 	 * @param character - target character
 	 * @return position of first occurring target character
