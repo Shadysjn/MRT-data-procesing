@@ -21,6 +21,7 @@ public class RegisterGuideStepDefinitions {
     /**
     * Initializes the DiveSafe system
     * @author  danielmakhlin, radupetrescu, shadyguindi
+     * @param dataTable - cucumber datatable that contains the wanted diveSafe application attributes
     */
     @Given("the following DiveSafe system exists: \\(p3)")
     public void the_following_dive_safe_system_exists_p3(io.cucumber.datatable.DataTable dataTable) throws ParseException {
@@ -47,6 +48,7 @@ public class RegisterGuideStepDefinitions {
     /**
     * Initializes and adds the guides in the system
     * @author radupetrescu, danielmakhlin
+     * @param dataTable - cucumber datatable that contains the wanted guides with their attributes
     */
     @Given("the following guides exist in the system: \\(p3)")
     public void the_following_guides_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) {
@@ -65,6 +67,7 @@ public class RegisterGuideStepDefinitions {
     /**
     * Initializes and adds members in the system
     * @author radupetrescu, danielmakhlin
+     * @param dataTable - cucumber datatable that contains the wanted members with their attributes
     */
     @Given("the following members exist in the system: \\(p3)")
     public void the_following_members_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) throws ParseException {
@@ -84,6 +87,10 @@ public class RegisterGuideStepDefinitions {
     /**
     * Attempts to register a guide
     * @author AlecTufenkjian
+     * @param email - String email of the guide about to register
+     * @param password - String password to the guides account
+     * @param name - String name of the guide
+     * @param emergencyContact - String emergency contact string
     */
     @When("a new guide attempts to register with {string}, {string}, {string}, and {string} \\(p3)")
     public void a_new_guide_attempts_to_register_with_and_p3(String email, String password, String name, String emergencyContact) {
@@ -97,8 +104,12 @@ public class RegisterGuideStepDefinitions {
     }
 
     /**
-     * Verifies the existence of the guide
+     * Verifies the existence of the guide with the correct information
      * @author androwabdelmalak
+     * @param email - String email of the guide who registered
+     * @param password - String password to the guides account
+     * @param name - String name of the guide
+     * @param emergencyContact - String emergency contact string
      */
     @Then("a new guide account shall exist with {string}, {string}, {string}, and {string} \\(p3)")
     public void a_new_guide_account_shall_exist_with_and_p3(String email, String password, String name,String emergencyContact) {
@@ -119,6 +130,7 @@ public class RegisterGuideStepDefinitions {
     /**
      * Compares the expected number of guides with the found number of guides
      * @author androwabdelmalak
+     * @param expectedNumberOfGuides - Int: number of guides that should exist after the registerGuide controller method was called
      */
     @Then("the number of guides in the system is {int} \\(p3)")
     public void the_number_of_guides_in_the_system_is_p3(Integer expectedNumberOfGuides) {
@@ -128,6 +140,7 @@ public class RegisterGuideStepDefinitions {
     /**
     * Compares the expected response with the found response
     * @author AlecTufenkjian
+     * @param responseExpected - String the expected response/return from registerGuide controller method
     */
     @Then("the following {string} shall be raised \\(p3)")
     public void the_following_shall_be_raised_p3(String responseExpected) {

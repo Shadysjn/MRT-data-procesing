@@ -7,15 +7,14 @@ public class GuideController {
 
 	/**
 	 * @author danielmakhlin, radupetrescu, shadyguindi, AlecTufenkjian, androwabdelmalak, yassinemeliani
-	 * @param email - email string
-	 * @param password - password string
-	 * @param name - name string
-	 * @param emergencyContact - emergency contact string
+	 * @param email - String email of the guide about to register
+	 * @param password - String password to the guides account
+	 * @param name - String name of the guide
+	 * @param emergencyContact - String emergency contact string
 	 * @return error message if registration fails, null if registration succeeds
-	 * @throws Exception
 	 */
 	public static String registerGuide(String email, String password, String name,
-		String emergencyContact) throws Exception {
+		String emergencyContact) {
 
 		//Verifies for empty parameters
 		if (email == null || email.equals("")) return "Email cannot be empty";
