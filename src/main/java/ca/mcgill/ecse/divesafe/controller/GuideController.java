@@ -30,7 +30,7 @@ public class GuideController {
 		if(numberOfSpaces != 0) return "Email must not contain any spaces";
 		if(numberOfAts != 1 || numberOfDots != 1) return "Invalid email";
 
-
+		//verifies presence of @ and . at the end of email, validates format of email
 		int positionOfAt = getCharacterPosition(email, '@');
 		int positionOfDot = getCharacterPosition(email, '.');
 
