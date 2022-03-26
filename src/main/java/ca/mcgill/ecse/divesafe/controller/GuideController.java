@@ -1,120 +1,98 @@
 package ca.mcgill.ecse.divesafe.controller;
+
 import ca.mcgill.ecse.divesafe.application.DiveSafeApplication;
+import ca.mcgill.ecse.divesafe.model.DiveSafe;
 import ca.mcgill.ecse.divesafe.model.Guide;
 import ca.mcgill.ecse.divesafe.model.Member;
 
+
 public class GuideController {
 
-	/**
-	 * @author danielmakhlin, radupetrescu, shadyguindi, AlecTufenkjian, androwabdelmalak, yassinemeliani
-	 * @param email - String email of the guide about to register
-	 * @param password - String password to the guides account
-	 * @param name - String name of the guide
-	 * @param emergencyContact - String emergency contact string
-	 * @return error message if registration fails, null if registration succeeds
-	 */
-	public static String registerGuide(String email, String password, String name,
-		String emergencyContact) {
+  private static DiveSafe diveSafe = DiveSafeApplication.getDiveSafe();
 
-		//Verifies for empty parameters
-		if (email == null || email.equals("")) return "Email cannot be empty";
-		if (password == null || password.equals("")) return "Password cannot be empty";
-		if (name == null || name.equals("")) return "Name cannot be empty";
-		if (emergencyContact == null || emergencyContact.equals("")) return "Emergency contact cannot be empty";
+  private GuideController() {}
 
-		int numberOfAts = getCharacterFrequency(email, '@');
-		int numberOfSpaces = getCharacterFrequency(email, ' ');
-		int numberOfDots = getCharacterFrequency(email, '.');
+  public static String registerGuide(String email, String password, String name,
+      String emergencyContact) {
+    String error = checkCommonConditions(password, name, emergencyContact);
 
-		//Verifies character counts
-		if(numberOfSpaces != 0) return "Email must not contain any spaces";
-		if(numberOfAts != 1 || numberOfDots != 1) return "Invalid email";
+    if (email.equals("admin@ad.atl")) {
+      error = "Email cannot be admin@ad.atl";
+    }
 
-		//verifies presence of @ and . at the end of email, validates format of email
-		int positionOfAt = getCharacterPosition(email, '@');
-		int positionOfDot = getCharacterPosition(email, '.');
+    if (email.contains(" ")) {
+      error = "Email must not contain any spaces";
+    }
 
-		//Verifies range of characters
-		for (int i = 0; i < email.length(); i++) {
-			if (!((email.charAt(i)>= 97 || email.charAt(i)<=122) || (email.charAt(i)=='@') || (email.charAt(i)=='.'))) {
-				return "Invalid email";
-			}
-		}
+    if (email.indexOf("@") <= 0 || email.indexOf("@") != email.lastIndexOf("@")
+        || email.indexOf("@") >= email.lastIndexOf(".") - 1
+        || email.lastIndexOf(".") >= email.length() - 1) {
+      error = "Invalid email";
+    }
 
-		//Verifies email is not reserved
-		if (email.equals("admin@nmc.nt")) return "Email cannot be admin@nmc.nt";
+    if (email == null || email.equals("")) {
+      error = "Email cannot be empty";
+    }
 
-		String[] splitEmailWithDot = email.split("\\.");
-		String[] splitEmailWithAt = email.split("@");
+    if (Guide.hasWithEmail(email)) {
+      error = "Email already linked to a guide account";
+    }
+    if (Member.hasWithEmail(email)) {
+      error = "Email already linked to a member account";
+    }
 
-		//Verifies position of '.' and '@' in email
-		if(splitEmailWithAt.length != 2 || positionOfAt == 0) return "Invalid email";
-		if(splitEmailWithDot.length != 2 || positionOfDot == 0) return "Invalid email";
-		if(Math.abs(positionOfDot - positionOfAt) == 1) return "Invalid email";
-		if(positionOfDot < positionOfAt) return "Invalid email";
+    if (!error.isBlank()) {
+      return error.trim();
+    }
 
-		//check if the email is NOT linked to an existing member account
-		if (Member.hasWithEmail(email)) return "Email already linked to a member account";
+    diveSafe.addGuide(email, password, name, emergencyContact);
 
-		//check if the email is NOT linked to an existing guide account
-		if (Guide.hasWithEmail(email)) return "Email already linked to a guide account";
+    return "";
+  }
 
-		//Registering and adding the new guide
-		Guide newGuide = new Guide(email, password, name, emergencyContact, DiveSafeApplication.getDiveSafe());
-		DiveSafeApplication.getDiveSafe().addGuide(newGuide);
+  public static String updateGuide(String email, String newPassword, String newName,
+      String newEmergencyContact) {
+    String error = ""; // initialize error string
 
-		return null;
-	}
+    error = checkCommonConditions(newPassword, newName, newEmergencyContact);
 
-	/**
-	 * returns number of target character found in given string
-	 * @author AlecTufenkjian
-	 * @param email - email string
-	 * @param character - target character
-	 * @return number of target character found
-	 */
-	private static int getCharacterFrequency(String email, char character){
-	  int counter = 0;
+    if (!Guide.hasWithEmail(email)) {
+      error = "The Guide does not exist in the system";
+    }
+    if (!error.isBlank()) {
+      return error;
+    }
 
-	  for(int i = 0; i < email.length(); i++){
-		  if(email.charAt(i) == character) counter++;
-	  }
+    var guideToUpdate = Guide.getWithEmail(email);
+    guideToUpdate.setPassword(newPassword);
+    guideToUpdate.setName(newName);
+    guideToUpdate.setEmergencyContact(newEmergencyContact);
 
-	  return counter;
-	}
+    return "";
+  }
 
-	/**
-	 * returns position of first occurring target character in given string
-	 * @author AlecTufenkjian
-	 * @param email - email string
-	 * @param character - target character
-	 * @return position of first occurring target character
-	 */
-	private static int getCharacterPosition(String email, char character){
+  public static String deleteGuide(String email) {
+    Guide guide = Guide.getWithEmail(email);
+    if (guide != null) {
+      guide.delete();
+    }
+    return "";
+  }
 
-		for(int i = 0; i < email.length(); i++){
-			if(email.charAt(i) == character) return i;
-		}
+  private static String checkCommonConditions(String password, String name,
+      String emergencyContact) {
+    String error = "";
+    if (password == null || password.equals("")) {
+      error = "Password cannot be empty";
+    }
+    if (name == null || name.equals("")) {
+      error = "Name cannot be empty";
+    }
+    if (emergencyContact == null || emergencyContact.equals("")) {
+      error = "Emergency contact cannot be empty";
+    }
 
-		return -1;
-	}
+    return error;
+  }
 
-	/**
-	 * Updates Guide with new information
-	 * @param email - email string
-	 * @param newPassword - new password string
-	 * @param newName - new name string
-	 * @param newEmergencyContact - new emergency contact string
-	 * @return response failure/success
-	 */
-	public static String updateGuide(String email, String newPassword, String newName,
-	  String newEmergencyContact) {
-		return null;
-	}
-
-	/**
-	 * Deletes guide based on email
-	 * @param email
-	 */
-  	public static void deleteGuide(String email) {}
 }
