@@ -24,27 +24,27 @@ public class AssignmentController {
 
     return assignments;
   }
-
+  //androw
   public static String initiateAssignment() {
     return null;
   }
-
+  //shady, cuz he canceled the trip
   public static String cancelTrip(String userEmail) {
     return null;
   }
-
+  //radu
   public static String finishTrip(String userEmail) {
     return null;
   }
-
+  //yassine
   public static String startTripsForDay(int day) {
     return null;
   }
-
+  //daniel
   public static String confirmPayment(String userEmail, String authorizationCode) {
     return null;
   }
-
+  //alec
   public static String toggleBan(String userEmail) {
     return null;
   }
