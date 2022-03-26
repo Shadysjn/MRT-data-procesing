@@ -24,7 +24,7 @@ public class AssignmentController {
 
     return assignments;
   }
-  //androw
+  //alec
   public static String initiateAssignment() {
     return null;
   }
@@ -44,7 +44,7 @@ public class AssignmentController {
   public static String confirmPayment(String userEmail, String authorizationCode) {
     return null;
   }
-  //alec
+  //androw
   public static String toggleBan(String userEmail) {
     return null;
   }
